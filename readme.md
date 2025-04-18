@@ -1,4 +1,6 @@
-# Machine Learning: 让机器找到一个复杂到很难直接编程得到的 function
+# Machine Learning
+
+让机器找到一个复杂到很难直接编程得到的 function
 
 <table>
   <tr>
@@ -18,6 +20,8 @@
     <td>Infinite, structured data</td>
   </tr>
 <table>
+
+## Training Loss
 
 <table>
   <tr>
@@ -55,6 +59,8 @@
   </tr>
 </table>
 
+## Validation Loss
+
 <table>
   <tr>
     <td>验证损失很高的原因</td>
@@ -80,6 +86,8 @@
     <td>训练分布不同于测试分布</td>
   </tr>
 </table>
+
+## Classification
 
 <table>
   <tr>
@@ -120,6 +128,8 @@
   </tr>
 </table>
 
+## CNN
+
 <table>
   <tr>
     <td>CNN</td>
@@ -154,6 +164,8 @@
     <td>CNN 不是 scale/ rotate invariant，spatial transformer layer 可以</td>
   </tr>
 <table>
+
+## Self Attention
 
 <table>
   <tr>
@@ -201,6 +213,8 @@
     <td>没有 edge 的两个 node 可以设成 attention matrix = 0</td>
   </tr>
 <table>
+
+## Transformer
 
 <table>
   <tr>
@@ -254,6 +268,8 @@
     <td>Mismatch, scheduled sampling：会影响平行化的效果，引入实际生成的时候会看到的自己的比较差的输入</td>
   </tr>
 </table>
+
+## GAN
 
 <table>
   <tr>
@@ -330,6 +346,8 @@
   </tr>
 </table>
 
+## BERT
+
 <table>
   <tr>
     <td>Self Supervised Learning (unsupervised)</td>
@@ -360,6 +378,8 @@
     <td>GLUE - SUPERB</td>
   </tr>
 </table>
+
+## Auto Encoder
 
 <table>
   <tr>
@@ -392,6 +412,8 @@
   </tr>
 </table>
 
+## Adversarial Attack
+
 <table>
   <tr>
     <td>Adversarial Attack</td>
@@ -418,6 +440,8 @@
     <td>smooth, compression, reconstruct, randomization, proactive defense（训练时产生 adversarial 结果来学习）</td>
   </tr>
 </table>
+
+## ML Explainability
 
 <table>
   <tr>
