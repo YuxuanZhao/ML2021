@@ -458,7 +458,6 @@
   </tr>
   <tr>
     <td>网络<br>- Ablation study 消融实验：找到最重要的 component<br>- PCA/ t-SNE 降维<br>- 看 hidden layer 的结果，看 attention 的结果<br>- probing：训练模型去接收模型内部的 hidden layer 结果得出 class/ sequence</td>
-    <td></td>
   </tr>
   <tr>
     <td>Global Explanation (what does cat looks like?)</td>
