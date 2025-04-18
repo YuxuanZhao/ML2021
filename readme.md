@@ -533,3 +533,32 @@
     1. EWC: Loss 增加每个参数都有一个 guard b（人为设置的），如果这个参数在之前的任务非常重要，就不许大幅改动。类似的有: SI, MAS, RWalk, SCP<br>2. Gradient Episodic Memory (GEM): gradient 更新的方向会考虑之前的任务的 gradient，需要之前的资料来计算 gradient<br>- Additional Neural Resource Allocation: <br>1. Progressive Neural Network (额外任务就增加额外模型)<br>2. packNet（先做大模型，然后每次都只使用一部分参数）<br>3. CPG: 前面两者的结合<br>- Memory reply: 每个数据/任务都训练一个数据 generator，非常有效<br>- curriculum learning：任务学习的先后顺序</td>
   </tr>
 </table>
+
+## Network Compression
+
+<table>
+  <tr>
+    <td>原因：edge device/ privacy</td>
+    <td>大的模型比较好 train（大乐透假说，initialize参数的正负号很重要，大小不重要，大模型可能完全不用训练里面就已经有 subnetwork 是正确的）</td>
+  </tr>
+  <tr>
+    <td>Network Prunning</td>
+    <td>反复：根据 weight（现实中很难实现一个 neuron 不给另外一个特定 neuron 传参数，而且硬件加速不了反而会变慢）/ neuron （直接改模型的 dimension）的重要性剪掉，然后 fine tune</td>
+  </tr>
+  <tr>
+    <td>Distillation</td>
+    <td>小模型不学 ground truth，而是模仿大模型的结果（可能是一个 distribution），这个大模型甚至可以是 ensemble<br>- Temperature T: 平滑化 softmax，让学生更容易学（不然就等同于 ground truth）</td>
+  </tr>
+  <tr>
+    <td>Parameter Quantization</td>
+    <td>- FP16, FP8, binary weight<br>- weight clustering,可以在训练的时候就要求 weight 比较接近<br>- Hufffman-encoding</td>
+  </tr>
+  <tr>
+    <td>Depthwise Separable Convolution</td>
+    <td>- 几个 channel 就有几个 kernel（普通的 CNN 是可以不同的）每个 kernel 只负责自己对应的那一个 channel（不会交叉）<br>- 1x1 conv 来做 point-wise channel 间的关系<br>为什么有用？Low-rank approximation 的概念：网络变深反而参数量变少，会减少 rank</td>
+  </tr>
+  <tr>
+    <td>Dynamic Computation</td>
+    <td>- dynamic depth: 每一个 layer 都可以加一个 extra layer 直接得出结果，MSDNet 改进了这个<br>- dynamic width: Slimmable Neural Networks<br>- 模型自行决定：SkipNet,BlockDrop 根据输入的难度决定</td>
+  </tr>
+</table>
