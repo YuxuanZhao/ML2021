@@ -429,11 +429,11 @@
   </tr>
   <tr>
     <td>特别的攻击手段</td>
-    <td>one pixel, universal（万用的，而不是只有一个例子），也可以拓展到 speech, NLP 上，现实（人脸识别的眼镜干扰，交通标志），adversarial reprogramming（劫持classifier做别的任务）, 混入精心设计的数据让模型有 back door</td>
+    <td>one pixel, universal（万用的，而不是只有一个例子），也可以拓展到 speech, NLP 上，现实（人脸识别的眼镜干扰，交通标志），Adversarial reprogramming（劫持classifier做别的任务）, 混入精心设计的数据让模型有 back door</td>
   </tr>
   <tr>
     <td>防范</td>
-    <td>smooth, compression, reconstruct, randomization, proactive defense（训练时产生 adversarial 结果来学习）</td>
+    <td>smooth, compression, reconstruct, randomization, proactive defense（训练时产生 Adversarial 结果来学习）</td>
   </tr>
 </table>
 
@@ -458,5 +458,36 @@
   <tr>
     <td>Global Explanation (what does cat looks like?)</td>
     <td>Gradient Ascend, Generator，一般都不是人想象中的样子，要加很多限制，调很多超参数和新模型。其实我们不在乎机器在想什么。</td>
+  </tr>
+</table>
+
+## Domain Adaptation (Transfer Learning)
+
+<table>
+  <tr>
+    <td>Domain Drift</td>
+    <td>Testing Data (Source Domain) 和 Training Data (Traget Domain) 的 distribution 不一样<br>- 输入从黑白变成彩色<br>- 输出从均匀变成倾斜<br>- 输入和输出的关系不一样</td>
+  </tr>
+  <tr>
+    <td>Finetuning</td>
+    <td>target domain data 很少，有 label</td>
+  </tr>
+  <tr>
+    <td>Domain Adversarial Training</td>
+    <td>target domain data 很多，没有 label<br>- 把模型分成两半，一半认为是 feature
+     extractor，一半是 label predictor<br>- domain classifier: 类似于 GAN 判定图片是哪个 domain，可以把 feature extractor 想像成 generator，domain classifier 想像成 discriminator<br>- Decision Boundary (DIRT-T): unlabeled 的离 boundary 越远越好<br>- Universal Domain Adaptation: target domain 可能会有 source domain 里没有的类别</td>
+  </tr>
+  <tr>
+    <td>Testing Time Training</td>
+    <td>target domain data 很少，没有 label</td>
+  </tr>
+</table>
+
+## Reinforcement Learning
+
+<table>
+  <tr>
+    <td></td>
+    <td></td>
   </tr>
 </table>
