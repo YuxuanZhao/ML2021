@@ -562,3 +562,28 @@
     <td>- dynamic depth: 每一个 layer 都可以加一个 extra layer 直接得出结果，MSDNet 改进了这个<br>- dynamic width: Slimmable Neural Networks<br>- 模型自行决定：SkipNet,BlockDrop 根据输入的难度决定</td>
   </tr>
 </table>
+
+## Meta learning (learn to learn)
+
+<table>
+  <tr>
+    <td>训练一个模型来找最好的 hyper parameter (network architecture, parameters, learning rate)</td>
+    <td>1. 使用很多不同的 task 的 dataset (support set = training, query set = validation) 来训练一个 meta learning network<br>2. 真正想要的不同的任务作为 testing task，使用这些 task 的很小的 train (within-task training)/ validation (within-task testing) dataset 就能找到最优的参数（loss 可以用 cross entropy）3. learning to compare (matric-based) 可以只有一个步骤，直接得到结果而不是模型</td>
+  </tr>
+  <tr>
+    <td>学 initialize model: Model-Agnostic Meta-Learning (MAML) 优点是可以 feature reuse, Reptile</td>
+    <td>Pretrained Model(self-supervised learning), domain adaptation/ transfer learning 也是类似的观点 ，可以把所有的 task 数据混在一起来训练作为 baseline</td>
+  </tr>
+  <tr>
+    <td>Network Architecture Search (NAS)</td>
+    <td>- RL: discrete number 类似于 # filter, height, width, stride, ...<br>- DARTS: 把不能微分的模型变成可以</td>
+  </tr>
+  <tr>
+    <td>Data Augmentation</td>
+    <td>sample reweighting</td>
+  </tr>
+  <tr>
+    <td>应用</td>
+    <td>Few-shot image classification: n-way k-shot (Omniglot dataset)</td>
+  </tr>
+</table>
