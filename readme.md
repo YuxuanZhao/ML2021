@@ -4,10 +4,6 @@
 
 <table>
   <tr>
-    <td>Network</td>
-    <td>Ouput</td>
-  </tr>
-  <tr>
     <td>Regression</td>
     <td>Scalar</td>
   </tr>
