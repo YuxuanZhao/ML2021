@@ -487,7 +487,27 @@
 
 <table>
   <tr>
-    <td></td>
-    <td></td>
+    <td>有些任务很难label(不知道哪个是最优解)</td>
+    <td>RL 三步走：Observation, Action, Reward<br>- Policy Network (Actor): 输入游戏画面，输出 action 的概率，然后 sample<br>- Define Loss: -Total Reward = loss<br>- Optimization: Reward 和 Environment 都是黑盒，actor 和 environment 都有随机性。类比 GAN 的话，我们不知道 discriminator 的结构，也不能做 gradient descent</td>
+  </tr>
+  <tr>
+    <td>Policy gradient (Control actor)</td>
+    <td>{e, a} 都对应一个我们有多希望在这种情况下机器做/不做某件事，那怎么评价呢？<br>1. 评价一个 action，我们需要考虑之后发生的所有 reward (cumulated): Reward Delay<br>2. 很远的 reward 也有关系吗？discounted accumulation gamma^N<br>3. reward 是相对的，所以需要normalization -b<br>4. 用 critic 的结果来当作 b，也就是说比预想中的平均值好才行<br>5. Advantage Actor-Critic: A = r + V+1 - V 也就说说用作出了a得到的t+1这个时刻的和所有t这个时刻的V来比</td>
+  </tr>
+  <tr>
+    <td>On-policy VS Off-policy</td>
+    <td>背景：一般数据只更新一个 epoch，每次更新都需要收集新的资料（同一个操作，结果对于不同能力的模型来说可能不一样的，能力低的模型驾驭不了高难度的操作）<br>- on-policy: interact 和 train 的 actor 最好是同一个<br>- off-policy 能省很多收集资料的时间 (Proximal Policy Optimization PPO), 直觉是 train 的模型要知道它跟 interact 的模型是不同的（而且可以量化这种不同）<br>- Exploration: 如果 actor 从来没做过某种行为，那么我们永远也不知道那件事好还是不好，所以 actor in interact 应该增大随机性</td>
+  </tr>
+  <tr>
+    <td>Critic</td>
+    <td>Value function: s + 观察对象模型 theta => 预测 discounted cumulated reward<br>- Monte-Carlo: 看完一整个 episode，认为先后两个s是有关系的，TD则认为无关<br>- Temporal-Difference (TD): 只需要看 s, a, r, s+1 就足够了，适合很长的游戏，训练的时候因为知道 r，所以可以用前后两个 s 作为输入的差值<br>- Actor 和 critic 可以 shared bottom<br>- Deep Q Network: 只使用 critic</td>
+  </tr>
+  <tr>
+    <td>Sparse Reward</td>
+    <td>绝大多数时候都没有 reward，添加 extra reward to guide (reward shaping)，需要 domain knowledge<br>- Curiosity: meaningful new</td>
+  </tr>
+  <tr>
+    <td>No Reward</td>
+    <td>Imitation Learning: expert demonstration/ behavior cloning 机器可能会学不到失败的情况，可能不知道哪个行为是essential，哪个是 irrelevant<br>- Inverse Reinforcement learning: 用 expert demonstration 来学 reward function，然后正常学 actor，假设老师的行为是最好的，在生成 trajectories 的时候，reward function必须给老师的行为更高的reward。这个过程中的 actor 其实是 generator，reward function 是 discriminator</td>
   </tr>
 </table>
