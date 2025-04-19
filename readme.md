@@ -173,7 +173,7 @@
 
 <table>
   <tr>
-    <td>Seq2seq</td>
+    <td>Seq2seq 应用</td>
     <td>speech translation, machine translation, speech translation</td>
   </tr>
   <tr>
@@ -184,39 +184,35 @@
     <td>FC: residual connection + layer norm</td>
   </tr>
     <tr>
-    <td rowspan="2">Decoder</td>
+    <td rowspan="3">Decoder</td>
     <td>Autoregressive: Begin, End token</td>
   </tr>
   <tr>
-    <td>Non-autoregressive: 不是一个一个生成的，一次输入多个 Begin token。性能比 autoregressive 差，也更难训练好。那应该有多少个 Begin token 呢？<br>- 另一个 classifier来决定<br>- 给定超长的 Begin，停在 End 的时候</td>
+    <td>Non-autoregressive: 不是一个一个生成的，一次输入多个 Begin token。性能比 autoregressive 差，也更难训练<br>Begin token 数量：<br>- 由另一个 classifier来决定<br>- 给定超长的 Begin，停在 End 的时候</td>
+  </tr>
+  <tr>
+    <td>Teacher forcing: training 的时候使用 ground truth 作为 decoder 的输入</td>
   </tr>
   <tr>
     <td>Cross Attention</td>
     <td>decoder 的 self attention mask 产生出来的 query 和 encoder 的 k 和 v 做加权和。原始论文只使用最后一层 encoder 的结果，有很多别的研究做不同的 cross 方式</td>
   </tr>
   <tr>
-    <td>Teacher forcing</td>
-    <td>training 的时候使用 ground truth 作为 decoder 的输入</td>
-  </tr>
-  <tr>
-    <td>Copy mechanism</td>
-    <td>Summarization, point network</td>
-  </tr>
-  <tr>
     <td>Guided attention</td>
     <td>强迫 attention 必须有某种模式。monotonic attention, location-aware attention 应用：语音生成，语音辨识</td>
   </tr>
   <tr>
-    <td>Beam Search</td>
-    <td>Greedy decoding 不一定是最好的方法，beam search 也不一定更好，会影响创造力</td>
+    <td rowspan="4">Trick</td>
+    <td>Beam Search: Greedy decoding 不一定最好，beam search 也不一定更好，会影响创造力</td>
   </tr>
   <tr>
-    <td>Optimize evalution metrics</td>
-    <td>训练 cross entropy 不能直接推导到 BLEU，但是 BLEU 不能微分。不会 optimize 的时候，就用 RL 硬做</td>
+    <td>训练 cross entropy 不能直接推导到 BLEU，但 BLEU 又不能微分，可以用 RL</td>
   </tr>
   <tr>
-    <td>Exposure bias</td>
-    <td>Mismatch, scheduled sampling：会影响平行化的效果，引入实际生成的时候会看到的自己的比较差的输入</td>
+    <td>Copy mechanism: Summarization, point network</td>
+  </tr>
+  <tr>
+    <td>Mismatch, scheduled sampling 引入实际生成的时候会看到的自己的比较差的输入，可以减少 Exposure bias，但会影响平行化的效果，</td>
   </tr>
 </table>
 
