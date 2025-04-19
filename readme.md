@@ -220,76 +220,58 @@
 
 <table>
   <tr>
-    <td>GAN Generator</td>
-    <td>x + simple distribution = network => complex distribution</td>
-  </tr>
-  <tr>
-    <td>Why distribution</td>
-    <td>creativity: same input, different output</td>
-  </tr>
-  <tr>
-    <td>unconditional generation</td>
-    <td>只有 simple distribution (比如说 normal distribution)，没有 x</td>
+    <td>Generator</td>
+    <td>x + simple distribution = network => complex distribution, distribution 可以带来 creativity: same input, different output</td>
   </tr>
   <tr>
     <td>Discriminator</td>
     <td>输入之前的 generator 的输出，输出有多像真的</td>
   </tr>
   <tr>
-    <td>训练过程</td>
-    <td>可以理解成模型来回进行两个过程，分别锁定generator层和discriminator层的参数，最小化loss和最大化loss</td>
+    <td>Unconditional</td>
+    <td>只有 simple distribution (比如说 normal distribution)，没有 x</td>
   </tr>
   <tr>
-    <td>怎么计算 distribution 的 divergence 呢？</td>
-    <td>类似于 JS/KL Divergence 之类的，不好算，而且也不好微分。实际上直接使用 sampling，做二元分类的 cross entropy</td>
-  </tr>
-  <tr>
-    <td>很难训练</td>
-    <td>合理的图片是高维空间的 low-dim manifold，之间的交集可以忽略不计。如果sampling得不好，即使有相交，discriminator也很容易分辨</td>
-  </tr>
-  <tr>
-    <td>没有重叠那有什么问题</td>
-    <td>没有重叠的时候是没有区分度的，JS Divergence 永远都是 log2。直觉就是 classifier 几乎是 100%，只能人眼看效果好不好</td>
-  </tr>
-  <tr>
-    <td>Wasserstein Distance</td>
-    <td>想像成earth mover，穷举所有的把P的土全部移动到Q的计划的平均移动距离</td>
-  </tr>
-  <tr>
-    <td>D in 1-Lipschitz</td>
-    <td>D需要比较平滑，两个比较接近的点不能赋予差异很大的值。但是 Lipschitz 很难计算，所以有很多不同的方法去做类似的事情，比如说 clip 太大的 gradient，gradient penalty, 或spectral normalization</td>
-  </tr>
-  <tr>
-    <td>GAN 做 sequence generation</td>
-    <td>没办法微分，因为最后生成的是 token，小的delta可能不会影响选择哪个token。一个解决方法是用 RL</td>
-  </tr>
-  <tr>
-    <td>GAN 没有公用的 metrics</td>
-    <td>不同的task 设计不同的metrics，往往用另一个神经网络来判别(classifier)</td>
-  </tr>
-  <tr>
-    <td>Mode Collapse</td>
-    <td>generator 专门出 discriminator 的盲点的图片</td>
-  </tr>
-  <tr>
-    <td>Mode Dropping</td>
-    <td>generator 有多样性，但是其实只有训练数据的一部分分布，比如说只有黑人/白人/黄种人，这种 diversity 可以看Inception Score</td>
-  </tr>
-  <tr>
-    <td>Frechet Inception Distance (Guassian)</td>
-    <td>将真图片和生成的图片通过CNN在最后softmax前的结果当作是 gaussian distribution，衡量真和假的距离，越小越好，需要很多的sample</td>
-  </tr>
-  <tr>
-    <td>Conditional Generator</td>
+    <td rowspan="3">Conditional</td>
     <td>- 文生图：需要成对资料，negative sample 需要有乱配的，图片本来是真实的<br>- 图生图/声音生图</td>
   </tr>
   <tr>
-    <td>Unsupervised learning</td>
-    <td>Image Style Transfer，输入是 x domain 的图片的分布，输出是 y domain，discriminator 现在分辨是否是原本 y domain 的图片就行。但是 GAN 可能会无视这个 X 输入</td>
+    <td>Image Style Transfer: 输入是 x domain 的图片的分布，输出是 y domain，discriminator 现在分辨是否是原本 y domain 的图片就行。但是 GAN 可能会无视这个 X 输入</td>
   </tr>
   <tr>
-    <td>Cycle GAN</td>
-    <td>训练两个 generator，一个把 X 转成 Y，一个把 Y 转成 X，解决 GAN 无视 X 输入的问题，实际上就算不用 cycle GAN，往往也是很像的</td>
+    <td>Cycle GAN: 训练两个 generator，一个把 X 转成 Y，一个把 Y 转成 X，解决 GAN 无视 X 输入的问题，实际上就算不用 cycle GAN，往往也是很像的</td>
+  </tr>
+  <tr>
+    <td rowspan="7">Training</td>
+    <td>可以理解成模型来回进行两个过程，分别锁定generator层和discriminator层的参数，最小化loss和最大化loss</td>
+  </tr>
+  <tr>
+    <td>怎么计算 distribution 的 divergence：类似于 JS/KL Divergence 之类的，不好算，而且也不好微分。实际上直接使用 sampling，做二元分类的 cross entropy</td>
+  </tr>
+  <tr>
+    <td>难以训练：合理的图片是高维空间的 low-dim manifold，之间的交集可以忽略不计。如果sampling得不好，即使有相交，discriminator也很容易分辨。没有重叠的时候是没有区分度的，JS Divergence 永远都是 log2。直觉就是 classifier 几乎是 100%，只能人眼看效果好不好</td>
+  </tr>
+  <tr>
+    <td>Wasserstein Distance: 想像成earth mover，穷举所有的把P的土全部移动到Q的计划的平均移动距离</td>
+  </tr>
+  <tr>
+    <td>D in 1-Lipschitz: D需要比较平滑，两个比较接近的点不能赋予差异很大的值。但是 Lipschitz 很难计算，所以有很多不同的方法去做类似的事情，比如说 clip 太大的 gradient，gradient penalty, 或spectral normalization</td>
+  </tr>
+  <tr>
+    <td>sequence generation: 没办法微分，因为最后生成的是 token，小的 delta 不能影响到选中哪个 token，用 RL</td>
+  </tr>
+  <tr>
+    <td>Frechet Inception Distance (Guassian): 将真图片和生成的图片通过CNN在最后softmax前的结果当作是 gaussian distribution，衡量真和假的距离，越小越好，需要很多的sample</td>
+  </tr>
+  <tr>
+    <td rowspan="3">模型问题</td>
+    <td>No public metrics：不同的task 设计不同的metrics，往往用另一个神经网络来判别(classifier)</td>
+  </tr>
+  <tr>
+    <td>Mode Collapse: generator 专门出 discriminator 的盲点的图片</td>
+  </tr>
+  <tr>
+    <td>Mode Dropping: generator 有多样性，但是其实只有训练数据的一部分分布，比如说只有黑人/白人/黄种人，这种 diversity 可以看Inception Score</td>
   </tr>
 </table>
 
