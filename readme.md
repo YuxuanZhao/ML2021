@@ -416,32 +416,53 @@
 
 <table>
   <tr>
-    <td>Auto Encoder</td>
+    <td rowspan="2">Auto Encoder</td>
+    <td>过程</td>
     <td>类似于 Cycle GAN，把图片经过多层网络得到一个 vector (embedding/ representation/ code)，然后从这个 bottleneck 重建原图片</td>
   </tr>
   <tr>
-    <td>为什么压缩图片是可行？</td>
-    <td>如果我们随机设置像素，形成一张合理的图片的可能性很低，说明了其实合理图片是非常小的一个子集</td>
+    <td>为什么可行？</td>
+    <td>如果我们随机设置像素/频率/token，形成一张合理的图片/声音/文字的可能性很低，说明了其实合理的图片/声音/文字是非常小的一个子集</td>
+  </tr>
+  <tr>
+    <td>feature disentangle</td>
+    <td>voice conversion</td>
+    <td>输入一段音频，中间的 representation 能够分成不同的部分，比如说 content/ speaker information。那么我们就可以组合两个不同的声音的 content 和 speaker information</td>
+  </tr>
+  <tr>
+    <td rowspan="3">discrete representation</td>
+    <td>改进</td>
+    <td>原本的 vector 是 real number，可以改进成 binary, one-hot, tree</td>
+  </tr>
+  <tr>
+    <td>VQVAE</td>
+    <td>code 转化成 code book 最近邻的 code 来输入 decoder</td>
+  </tr>
+  <tr>
+    <td>seq2sea2seq</td>
+    <td>text representation，需要加一个 discriminator 来判定中间的 sequence 是否是人写的来避免学了暗号</td>
+  </tr>
+  <tr>
+    <td rowspan="3">Variational Auto-Encoder (VAE)</td>
+    <td>Encode</td>
+    <td>to a Gaussian distribution</td>
+  </tr>
+  <tr>
+    <td>Sample</td>
+    <td>from distribution, maximize Evidence Lower BOund (ELBO)</td>
+  </tr>
+  <tr>
+    <td>Regularization</td>
+    <td>KL in loss generate a smooth, continuous manifold</td>
+  </tr>
+  <tr>
+    <td rowspan="2">应用</td>
+    <td>Anomaly Detection (Fraud, network intrusion, cancer detection)</td>
+    <td>没有什么异常例子的情况，单类分类。AE 对于 outlier 会生成出分布非常不正常的结果（无法 reconstruct）</td>
   </tr>
   <tr>
     <td>de-noise auto encoder</td>
     <td>图片，mask sentence</td>
-  </tr>
-  <tr>
-    <td>feature disentangle</td>
-    <td>输入一段音频，中间的 representation 能够分成不同的部分，比如说 content/ speaker information。那么我们就可以组合两个不同的声音的 content 和 speaker information 来做 voice conversion</td>
-  </tr>
-  <tr>
-    <td>discrete representation</td>
-    <td>原本的 vector 是 real number，可以改进成 binary 甚至是 one-hot<br>- VQVAE: code 转化成 code book 最近邻的 code 来输入 decoder<br>- seq2sea2seq: text representation，需要加一个 discriminator 来判定中间的 sequence 是否是人写的来避免学了暗号<br>- tree as embedding</td>
-  </tr>
-  <tr>
-    <td>Variational Auto-Encoder (VAE)</td>
-    <td>- encode to a Gaussian distribution<br>- sample from distribution, maximize Evidence Lower BOund (ELBO)<br>- Regularization: KL in loss generate a smooth, continuous manifold</td>
-  </tr>
-  <tr>
-    <td>应用</td>
-    <td>Anomaly Detection (Fraud, network intrusion, cancer detection)：没有什么异常例子的情况，单类分类。AE 对于 outlier 会生成出分布非常不正常的结果（无法 reconstruct）</td>
   </tr>
 </table>
 
