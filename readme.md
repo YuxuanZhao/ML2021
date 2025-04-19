@@ -348,24 +348,59 @@
 
 <table>
   <tr>
-    <td>Self Supervised Learning (unsupervised)</td>
-    <td>把输入的数据分成两部分，一部分用作 x，一部分用作 y<br>- Mask input：随机决定改成mask或者改成另一个随机字<br>- next sentence prediction：原版里有，后来被 RoBERTa 证明没什么用<br>- SOP Sentence Order Prediction: ALBERT 猜顺序稍微有点用</td>
+    <td rowspan="3">Self Supervised Learning (unsupervised)</td>
+    <td>Mask input</td>
+    <td>随机决定改成mask或者改成另一个随机字</td>
   </tr>
   <tr>
-    <td>Downstream Task</td>
-    <td>一点点额外的label data就可以解很多下游任务（evaluation: GLUE 9个任务）<br>- Sequence => Class: Sentiment analysis<br>- Sequence => Sequence: POS tagging, extraction-based QA<br>- 2 Sequence => Class: Natural Language Inference (premise, hypothesis)</td>
+    <td>next sentence prediction</td>
+    <td>原版里有，后来被 RoBERTa 证明没什么用</td>
   </tr>
   <tr>
-    <td>BERT 的输出</td>
-    <td>每个 token 在向量空间的 embedding，而且会同时考虑 context，一个词的意思和上下文极度相关(所以mask有用)<br>- fine-tuning on DNA/ protein/ music sequence classification</td>
+    <td>SOP Sentence Order Prediction</td>
+    <td>ALBERT 猜顺序稍微有点用</td>
   </tr>
   <tr>
-    <td>Cross-lingual Alignment</td>
-    <td>zero shot QA on different language: 不同的语言的相似token 可能在 BERT 的 embedding 也靠近在一起<br>- 但为什么？如果把语言的所有embedding求平均，然后计算两种语言的差值，我们可以加上这个差值直接做到 unsupervised token-level translation</td>
+    <td rowspan="4">Downstream Task</td>
+    <td>Evaluation</td>
+    <td>GLUE 9个任务</td>
   </tr>
   <tr>
-    <td>GPT</td>
-    <td>预测下一个 token，使用 masked self attention。因为太大了，finetuning 也很困难，所以直接用 few shot learning (no gradient descent, in-context learning)，不用 finetuning 了</td>
+    <td>Sequence => Class</td>
+    <td>Sentiment analysis</td>
+  </tr>
+  <tr>
+    <td>Sequence => Sequence</td>
+    <td>POS tagging, extraction-based QA</td>
+  </tr>
+  <tr>
+    <td>2 Sequence => Class</td>
+    <td>Natural Language Inference (premise, hypothesis)</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Output</td>
+    <td rowspan="2">Embedding in Context</td>
+    <td>一个词的意思和上下文极度相关(所以mask有用)</td>
+  </tr>
+  <tr>
+    <td>fine-tuning on DNA/ protein/ music sequence classification</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Cross-lingual Alignment</td>
+    <td>zero shot QA on different language</td>
+    <td>不同的语言的相似token 可能在 BERT 的 embedding 也靠近在一起</td>
+  </tr>
+  <tr>
+    <td>为什么？</td>
+    <td>如果把语言的所有embedding求平均，然后计算两种语言的差值，我们可以加上这个差值直接做到 unsupervised token-level translation</td>
+  </tr>
+  <tr>
+    <td rowspan="4">应用</td>
+    <td rowspan="2">NLP: GPT</td>
+    <td>预测下一个 token，使用 masked self attention</td>
+  </tr>
+  <tr>
+      <td>因为太大了，finetuning 也很困难，所以直接用 few shot learning (no gradient descent, in-context learning)</td>
   </tr>
   <tr>
     <td>CV</td>
