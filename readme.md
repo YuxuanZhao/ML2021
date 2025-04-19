@@ -1,8 +1,10 @@
 # Machine Learning
 
-让机器找到一个复杂到很难直接编程得到的 function
-
 <table>
+  <tr>
+    <td>ML</td>
+    <td>一个复杂到很难直接编程得到的 function</td>
+  </tr>
   <tr>
     <td>Regression</td>
     <td>Scalar</td>
@@ -17,14 +19,9 @@
   </tr>
 <table>
 
-## Training Loss
+## Training Loss 很高
 
 <table>
-  <tr>
-    <td>训练损失很高的原因</td>
-    <td>解决方案</td>
-    <td>解释</td>
-  </tr>
   <tr>
     <td rowspan="2"><b>Model Bias</b>: model 本身的 limitation/ assumption 不足够表达/概括实际的情况</td>
     <td>Deeper, wider</td>
@@ -32,15 +29,15 @@
   </tr>
   <tr>
     <td>Testing time scaling</td>
-    <td>albert 的论文证明了重复同一个模型更长时间也会有更好的结果</td>
+    <td>albert 的论文证明了同一个模型更长的inference时间也有更好的结果</td>
   </tr>
   <tr>
-    <td rowspan="5"><b>Optimization</b>: 表达力够了，但优化时没找到目标。不同深度的网络对比训练损失，更深的网络有更多的训练损失证明没有训练到位</td>
+    <td rowspan="5"><b>Optimization</b>: 优化不了，可以对比不同深度的网络来确认</td>
     <td rowspan="2">Small Batch</td>
     <td>训练速度变慢，但是可以引入噪音，就不容易卡在 sharp minimal 和 saddle point，generalize 会使得 training 和 validate 同时变好</td>
   </tr>
   <tr>
-      <td>Tayler Series Approximation 可以描述当前位置附近的 Loss function 形状：如果eigenvalue 全部为正就是 local minimal，经验上绝大多数训练卡住都是在 saddle point</td>
+      <td>Tayler Series Approximation 可以描述当前位置附近的 Loss function 形状，如果 eigenvalue 全部为正就是 local minimal，经验上绝大多数训练卡住都是在 saddle point</td>
   </tr>
   <tr>
     <td rowspan="2">Adam: RMSProp + Momentum</td>
@@ -55,16 +52,11 @@
   </tr>
 </table>
 
-## Validation Loss
+## Validation Loss 很高
 
 <table>
   <tr>
-    <td>验证损失很高的原因</td>
-    <td>解决方案</td>
-    <td>解释</td>
-  </tr>
-  <tr>
-    <td rowspan="3">overfitting: 在 training dataset 上有变好，但是在 unseen data 上变差了。模型能力太强，数据不够的地方是 freestyle</td>
+    <td rowspan="3">overfitting: 在 training dataset 上有变好，但是在 unseen data 上变差了。模型能力太强，数据不够的地方在 freestyle</td>
     <td>更多的 training data (data augmentation)</td>
     <td>数据越多模型 freestyle 空间越少</td>
   </tr>
@@ -87,40 +79,25 @@
 
 <table>
   <tr>
-    <td>classification</td>
-    <td>解释</td>
+    <td rowspan="2">Loss</td>
+    <td>sigmoid: binary classification, 等同于 softmax: yi = exp(yi)/sum(exp(yi)) => normalize [0,1]</td>
   </tr>
   <tr>
-    <td>one-hot</td>
-    <td>encode result</td>
-  </tr>
-  <tr>
-    <td>softmax</td>
-    <td>yi = exp(yi)/sum(exp(yi)) => normalize [0,1]</td>
-  </tr>
-  <tr>
-    <td>sigmoid</td>
-    <td>binary classification, 等同于 softmax</td>
-  </tr>
-  <tr>
-    <td>cross entropy loss</td>
-    <td>-sum(yi' ln yi), min CES = max Likelihood，比 MSE 更容易 training（error landscape 比较平坦）</td>
+    <td>Cross Entropy: -sum(yi' ln yi), min CES = max Likelihood，landscape 比较平坦，比 MSE 更容易训练</td>
   </tr>
   <tr>
     <td>Feature Normalization</td>
     <td>相同的 gradient 变化在更大的输入下会对 loss 有更大的影响，所以输入应当做 standardization</td>
   </tr>
   <tr>
-    <td>Batch Normalization</td>
+    <td rowspan="3">Batch Normalization</td>
     <td>做完之后，一个参数会对所有的参数有影响，所以我们需要一次性训练所有的数据。但这样不现实，所以我们使用足够大的 batch 来代表整个 corpus 的分布。能够改变 error surface 变得更平滑</td>
   </tr>
   <tr>
-    <td>gamma, beta in BN</td>
     <td>一开始 gamma 为 1，beta 为 0。因为 bn 会给模型加上了 mean = 0, sd = 1 的限制，所以在一段时间的训练之后，模型可以慢慢放松这种限制（learnable gamma, beta）</td>
   </tr>
   <tr>
-    <td>mu, sigma in eval</td>
-    <td>直接使用训练时计算的 moving average of mu, sigma</td>
+    <td>Evaluation: 直接使用训练时计算的 moving average of mu, sigma</td>
   </tr>
 </table>
 
@@ -128,32 +105,22 @@
 
 <table>
   <tr>
-    <td>CNN</td>
-    <td>解释</td>
+    <td rowspan="2">Input</td>
+    <td>Receptive Field: 只看一部分的图片信息</td>
   </tr>
   <tr>
-    <td>Receptive Field: kernel x channel</td>
-    <td>只看一部分的图片信息</td>
+    <td>例子：Alpha Go 将棋盘表示成图片</td>
   </tr>
   <tr>
-    <td>Parameter sharing</td>
-    <td>同一个任务的 filter 可以看所有的 receptive field</td>
+    <td>Output</td>
+    <td>Feature Map: 把图片变成了一张有更多 channel 的新的图片</td>
   </tr>
   <tr>
-    <td>Model Bias</td>
-    <td>基于影像的，有非常 strong assumption，不能随意用于其他任务</td>
+    <td rowspan="2">Model Bias: 基于影像</td>
+    <td>Parameter sharing: 同一个任务的 filter 可以看所有的 receptive field</td>
   </tr>
   <tr>
-    <td>Feature Map</td>
-    <td>把图片变成了一张新的图片，这张图片往往有更多的channel</td>
-  </tr>
-  <tr>
-    <td>Pooling</td>
-    <td>subsampling feature map 来节省资源</td>
-  </tr>
-  <tr>
-    <td>Alpha Go</td>
-    <td>棋盘表示成图片</td>
+    <td>Pooling: subsampling feature map 来节省资源</td>
   </tr>
   <tr>
     <td>Data Augmentation</td>
@@ -165,58 +132,46 @@
 
 <table>
   <tr>
-    <td>self attention</td>
-    <td>输入是可变长度的一系列向量</td>
-  </tr>
-  <tr>
     <td>Input</td>
-    <td>One-hot embedding vs word embedding: text, voice, graph</td>
+    <td>输入是可变长度的一系列 One-hot embedding/ word embedding: text, voice, graph</td>
   </tr>
   <tr>
     <td>Output</td>
     <td>1:1 sequence labeling/ N:1 label sentiment analysis/ N: M seq2seq</td>
   </tr>
   <tr>
-    <td>self attention query 如何考虑 key 的输入</td>
-    <td>relevance (attention score): dot product（常用）, additive + tanh</td>
+    <td rowspan="2">query 如何考虑 key</td>
+    <td>relevance (attention score): 常用 dot product，也可以 additive + tanh</td>
   </tr>
   <tr>
-    <td>实际矩阵运算</td>
-    <td>Q = W'I, K = W''I, V = W'''I, O = V(KQ)'</td>
+    <td>矩阵运算：Q = W'I, K = W''I, V = W'''I, O = V(KQ)'</td>
   </tr>
   <tr>
-    <td>Multi head self-attention</td>
-    <td>相关这件事可能有很多种定义，所以QKV可以由不同的W来得到，那最后的维度可以通过再加一个FC转换成1</td>
+    <td rowspan="3">Trick</td>
+    <td>Multi head: 相关可以有很多定义，所以 QKV 可以由不同的 W 来得到，最后通过一个FC转换成一维</td>
   </tr>
   <tr>
-    <td>Positional Encoding</td>
-    <td>vanilla没有距离，可以有不同的方法生成一些和位置信息相关的数字加到原始输入上</td>
+    <td>Positional Encoding: vanilla 的没有距离，可以有不同的方法生成一些和位置信息相关的数字加到原始输入上</td>
   </tr>
   <tr>
-    <td>Truncated self attention</td>
-    <td>如果sequence长度太长的话，模型参数会太多，所以我们可以人为设定一个能看得到的window</td>
+    <td>Truncated: 如果sequence长度太长的话，模型参数会太多，可以人为设定一个能看得到的 window</td>
   </tr>
   <tr>
-    <td>Self Attention vs CNN</td>
+    <td rowspan="2">优点</td>
     <td>CNN 只能看一个 receptive field，而 self attention 可以看整张图片，模型自己来决定哪些部分属于这个 pixel 的 receptive field</td>
   </tr>
   <tr>
-    <td>Self Attention vs RNN</td>
     <td>RNN 只考虑左边已经输入的，有双向的 RNN 可以考虑全部，self attention 更能并行</td>
   </tr>
   <tr>
-    <td>Self Attention in Graph</td>
-    <td>没有 edge 的两个 node 可以设成 attention matrix = 0</td>
+    <td>in Graph</td>
+    <td>unconnected node 的 attention matrix 设为 0</td>
   </tr>
 <table>
 
 ## Transformer
 
 <table>
-  <tr>
-    <td>Transformer</td>
-    <td>解释</td>
-  </tr>
   <tr>
     <td>Seq2seq</td>
     <td>speech translation, machine translation, speech translation</td>
