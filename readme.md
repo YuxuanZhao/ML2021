@@ -836,23 +836,43 @@
 
 <table>
   <tr>
-    <td>训练一个模型来找最好的 hyper parameter (network architecture, parameters, learning rate)</td>
-    <td>1. 使用很多不同的 task 的 dataset (support set = training, query set = validation) 来训练一个 meta learning network<br>2. 真正想要的不同的任务作为 testing task，使用这些 task 的很小的 train (within-task training)/ validation (within-task testing) dataset 就能找到最优的参数（loss 可以用 cross entropy）3. learning to compare (matric-based) 可以只有一个步骤，直接得到结果而不是模型</td>
+    <td rowspan="3">训练一个模型来找最好的模型</td>
+    <td>Training Task</td>
+    <td>使用很多不同的 task 的 dataset (support set = training, query set = validation) 来训练一个 meta learning network</td>
   </tr>
   <tr>
-    <td>学 initialize model: Model-Agnostic Meta-Learning (MAML) 优点是可以 feature reuse, Reptile</td>
-    <td>Pretrained Model(self-supervised learning), domain adaptation/ transfer learning 也是类似的观点 ，可以把所有的 task 数据混在一起来训练作为 baseline</td>
+    <td>Testing Task</td>
+    <td>真正想要的不同的任务，使用这些 task 的很小的 train (within-task training)/ validation (within-task testing) dataset 就能找到最优的参数（loss 可以用 cross entropy）</td>
   </tr>
   <tr>
-    <td>Network Architecture Search (NAS)</td>
-    <td>- RL: discrete number 类似于 # filter, height, width, stride, ...<br>- DARTS: 把不能微分的模型变成可以</td>
+    <td>Learning to compare</td>
+    <td>matric-based, 可以只有一个步骤，直接得到结果而不是模型</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Model parameter initialization</td>
+    <td>Model-Agnostic Meta-Learning (MAML), Reptile</td>
+    <td>优点是可以 feature reuse</td>
+  </tr>
+  <tr>
+    <td>把所有的 task 数据混在一起训练作为 baseline</td>
+    <td>类似于 Pretrained Model(self-supervised learning), domain adaptation/ transfer learning</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Network Architecture Search (NAS)</td>
+    <td>RL</td>
+    <td>discrete number 类似于 # filter, height, width, stride, ...</td>
+  </tr>
+  <tr>
+    <td>DARTS</td>
+    <td>把不能微分的模型变成可以</td>
+  </tr>
+  <tr>
+    <td rowspan="2">应用</td>
+    <td>Few-shot image classification</td>
+    <td>n-way k-shot (Omniglot dataset)</td>
   </tr>
   <tr>
     <td>Data Augmentation</td>
     <td>sample reweighting</td>
-  </tr>
-  <tr>
-    <td>应用</td>
-    <td>Few-shot image classification: n-way k-shot (Omniglot dataset)</td>
   </tr>
 </table>
