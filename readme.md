@@ -472,26 +472,47 @@
   <tr>
     <td>Adversarial Attack</td>
     <td>训练一个网络，对一个 benign image 增加一些人眼分辨不了的改变，targeted/ non-targeted 到另一个 class</td>
-  </tr>
-  <tr>
-    <td>训练过程</td>
     <td>白盒下 gradient descent 到 image input 上而不是模型上</td>
   </tr>
   <tr>
     <td>loss</td>
-    <td>L2 norm VS L-infinity：后者更好，因为人眼会对一个像素更大的改变更敏感。手动设置一个box范围，Fast Gradient Sign Method 直接用 box 的四个角，一拳超人，效果也不错</td>
+    <td>L2 norm VS L-infinity</td>
+    <td>L-infinity 更好，因为人眼会对一个像素更大的改变更敏感。手动设置一个box范围</td>
   </tr>
   <tr>
     <td>Black box attack</td>
-    <td>训练一个 network proxy（多个 ensemble 会更好），如果能骗到的话，可能也会骗到 black box</td>
+    <td>Network proxy</td>
+    <td>训练一个类似的网络（多个 ensemble 会更好），如果能骗到的话，可能也会骗到 black box</td>
   </tr>
   <tr>
-    <td>特别的攻击手段</td>
-    <td>one pixel, universal（万用的，而不是只有一个例子），也可以拓展到 speech, NLP 上，现实（人脸识别的眼镜干扰，交通标志），Adversarial reprogramming（劫持classifier做别的任务）, 混入精心设计的数据让模型有 back door</td>
+    <td rowspan="5">应用</td>
+    <td>Image</td>
+    <td>one pixel, universal（万用的，而不是只有一个例子）</td>
   </tr>
   <tr>
-    <td>防范</td>
-    <td>smooth, compression, reconstruct, randomization, proactive defense（训练时产生 Adversarial 结果来学习）</td>
+    <td>现实</td>
+    <td>人脸识别的眼镜干扰，交通标志</td>
+  </tr>
+  <tr>
+    <td>Adversarial reprogramming</td>
+    <td>劫持classifier做别的任务</td>
+  </tr>
+  <tr>
+    <td>Back Door</td>
+    <td>混入精心设计的数据让模型有训练缺陷</td>
+  </tr>
+  <tr>
+    <td>Fast Gradient Sign Method</td>
+    <td>直接用 box 的四个角，一拳超人，效果也不错</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Defense</td>
+    <td>Passive</td>
+    <td>smooth, compression, reconstruct, randomization</td>
+  </tr>
+  <tr>
+    <td>Proactive</td>
+    <td>训练时产生 Adversarial 结果来学习</td>
   </tr>
 </table>
 
