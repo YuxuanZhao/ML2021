@@ -765,28 +765,70 @@
 
 <table>
   <tr>
-    <td>原因：edge device/ privacy</td>
-    <td>大的模型比较好 train（大乐透假说，initialize参数的正负号很重要，大小不重要，大模型可能完全不用训练里面就已经有 subnetwork 是正确的）</td>
+    <td rowspan="2">Network Compression</td>
+    <td>原因</td>
+    <td>edge device/ privacy</td>
   </tr>
   <tr>
-    <td>Network Prunning</td>
-    <td>反复：根据 weight（现实中很难实现一个 neuron 不给另外一个特定 neuron 传参数，而且硬件加速不了反而会变慢）/ neuron （直接改模型的 dimension）的重要性剪掉，然后 fine tune</td>
+    <td>大乐透假说</td>
+    <td>大的模型比较好 train: initialize参数的正负号很重要，大小不重要，大模型可能完全不用训练里面就已经有 sub network 是正确的</td>
   </tr>
   <tr>
-    <td>Distillation</td>
-    <td>小模型不学 ground truth，而是模仿大模型的结果（可能是一个 distribution），这个大模型甚至可以是 ensemble<br>- Temperature T: 平滑化 softmax，让学生更容易学（不然就等同于 ground truth）</td>
+    <td rowspan="2">Network Prunning</td>
+    <td>Weight</td>
+    <td>现实中很难实现一个 neuron 不给另外一个特定 neuron 传参数，而且硬件加速不了反而会变慢</td>
   </tr>
   <tr>
-    <td>Parameter Quantization</td>
-    <td>- FP16, FP8, binary weight<br>- weight clustering,可以在训练的时候就要求 weight 比较接近<br>- Hufffman-encoding</td>
+    <td>Neuron</td>
+    <td>直接改模型的 dimension</td>
   </tr>
   <tr>
-    <td>Depthwise Separable Convolution</td>
-    <td>- 几个 channel 就有几个 kernel（普通的 CNN 是可以不同的）每个 kernel 只负责自己对应的那一个 channel（不会交叉）<br>- 1x1 conv 来做 point-wise channel 间的关系<br>为什么有用？Low-rank approximation 的概念：网络变深反而参数量变少，会减少 rank</td>
+    <td rowspan="2">Distillation</td>
+    <td>过程</td>
+    <td>小模型不学 ground truth，而是模仿大模型的结果（可能是一个 distribution），这个大模型甚至可以是 ensemble</td>
   </tr>
   <tr>
-    <td>Dynamic Computation</td>
-    <td>- dynamic depth: 每一个 layer 都可以加一个 extra layer 直接得出结果，MSDNet 改进了这个<br>- dynamic width: Slimmable Neural Networks<br>- 模型自行决定：SkipNet,BlockDrop 根据输入的难度决定</td>
+    <td>Temperature</td>
+    <td>平滑化 softmax，让学生更容易学，不然就等同于学 ground truth</td>
+  </tr>
+  <tr>
+    <td rowspan="3">Parameter Quantization</td>
+    <td>减少精度</td>
+    <td>FP16, FP8, binary weight</td>
+  </tr>
+  <tr>
+    <td>weight clustering</td>
+    <td>可以在训练的时候就要求 weight 比较接近</td>
+  </tr>
+  <tr>
+    <td>进一步减少 bit</td>
+    <td>Hufffman-encoding</td>
+  </tr>
+  <tr>
+    <td rowspan="3">Depthwise Separable Convolution</td>
+    <td>kernel</td>
+    <td>几个 channel 就有几个 kernel（普通的 CNN 是可以不同的）每个 kernel 只负责自己对应的那一个 channel（不会交叉）</td>
+  </tr>
+  <tr>
+    <td>1x1 conv</td>
+    <td>做 point-wise channel 间的关系</td>
+  </tr>
+  <tr>
+    <td>为什么有用？</td>
+    <td>Low-rank approximation 的概念：网络变深反而参数量变少，会减少 rank</td>
+  </tr>
+  <tr>
+    <td rowspan="3">Dynamic Computation</td>
+    <td>Dynamic Depth</td>
+    <td>每一个 layer 都可以加一个 extra layer 直接得出结果，MSDNet 改进了这个</td>
+  </tr>
+  <tr>
+    <td>Dynamic Width</td>
+    <td>Slimmable Neural Networks</td>
+  </tr>
+  <tr>
+    <td>模型自行决定</td>
+    <td>SkipNet, BlockDrop 根据输入的难度决定</td>
   </tr>
 </table>
 
