@@ -226,7 +226,7 @@
     <td>不是一个一个生成的，一次输入多个 Begin token。性能比 autoregressive 差，也更难训练</td>
   </tr>
   <tr>
-    <td>Begin token 数量：<br>- 由另一个 classifier来决定<br>- 给定超长的 Begin，停在 End 的时候</td>
+    <td>Begin token 数量：可以由另一个 classifier来决定，或者给定超长的 Begin，停在 End 的时候</td>
   </tr>
   <tr>
     <td>Teacher forcing</td>
@@ -520,23 +520,51 @@
 
 <table>
   <tr>
-    <td>Explainable ML</td>
-    <td>Loan issuer，不仅仅是答案，还要答案的理由<br>- interpretable: 本来模型就很简单，所以很容易解释和理解<br>- explainable: 本来模型很复杂，用常规手段无法理解，但是现在找到方法去理解<br>- Decision Tree 是不是兼具性能和可解释性呢？Random Forest 的复杂程度也不是人能够理解的<br>- 用简单模型distill 复杂模型，然后理解简单模型（Local Interpretable Model-Agnostic Explanations LIME）</td>
+    <td rowspan="5">Explainable ML</td>
+    <td>Interpretable</td>
+    <td>本来模型就很简单，所以很容易解释和理解</td>
+  </tr>
+  <tr>
+    <td>Explainable</td>
+    <td>本来模型很复杂，用常规手段无法理解，但是现在找到方法去理解</td>
+  </tr>
+  <tr>
+    <td>Decision Tree</td>
+    <td>Random Forest 的复杂程度也不是人能够理解的</td>
+  </tr>
+  <tr>
+    <td>Distill</td>
+    <td>用简单模型 distill 复杂模型，然后理解简单模型: Local Interpretable Model-Agnostic Explanations LIME</td>
   </tr>
   <tr>
     <td>目标</td>
-    <td>- 完整理解整个模型？<br>- Ellen Langer (The Copy Machine Study) 有理由就很有用，让人高兴就行</td>
+    <td>不需要完整理解整个模型，Ellen Langer (The Copy Machine Study) 有理由就很有用，让人高兴</td>
   </tr>
   <tr>
-    <td rowspan="2">Local Explanation (why this image is a cat?)</td>
-    <td>输入<br>- Saliency Map：找到哪个点做轻微改动对 loss 的影响最大，数据集可能有一些奇怪的pattern被学到了（比如背景颜色和水标）<br>- SmoothGrad: 在图片上加很多次杂讯，然后求平均的Saliency Map<br>- Gradient Saturation: 微分=0就证明不重要吗？鼻子特别长的数据不会增加是大象的几率（因为已经是趋近于100%）改进是 Integrated Gradient</td>
+    <td rowspan="6">Local Explanation (why this image is a cat?)</td>
+    <td rowspan="3">输入</td>
+    <td>Saliency Map：找到哪个点做轻微改动对 loss 的影响最大，数据集可能有一些奇怪的pattern被学到了（比如背景颜色和水标）</td>
   </tr>
   <tr>
-    <td>网络<br>- Ablation study 消融实验：找到最重要的 component<br>- PCA/ t-SNE 降维<br>- 看 hidden layer 的结果，看 attention 的结果<br>- probing：训练模型去接收模型内部的 hidden layer 结果得出 class/ sequence</td>
+    <td>SmoothGrad: 在图片上加很多次杂讯，然后求平均的Saliency Map</td>
+  </tr>
+  <tr>
+    <td>Gradient Saturation: 微分=0就证明不重要吗？鼻子特别长的数据不会增加是大象的几率（因为已经是趋近于100%）改进是 Integrated Gradient</td>
+  </tr>
+  <tr>
+    <td rowspan="3">网络</td>
+    <td>Ablation study 消融实验：找到最重要的 component</td>
+  </tr>
+  <tr>
+    <td>降维: PCA/ t-SNE</td>
+  </tr>
+  <tr>
+    <td>probing: 训练模型去接收模型内部的 hidden layer 结果得出 class/ sequence</td>
   </tr>
   <tr>
     <td>Global Explanation (what does cat looks like?)</td>
-    <td>Gradient Ascend, Generator，一般都不是人想象中的样子，要加很多限制，调很多超参数和新模型。其实我们不在乎机器在想什么。</td>
+    <td>其实我们不在乎机器在想什么，我们只是想画出好看的图</td>
+    <td>Gradient Ascend, Generator，一般都不是人想象中的样子，要加很多限制，调很多超参数和新模型</td>
   </tr>
 </table>
 
@@ -544,21 +572,39 @@
 
 <table>
   <tr>
-    <td>Domain Drift</td>
-    <td>Testing Data (Source Domain) 和 Training Data (Traget Domain) 的 distribution 不一样<br>- 输入从黑白变成彩色<br>- 输出从均匀变成倾斜<br>- 输入和输出的关系不一样</td>
+    <td rowspan="3">Domain Drift</td>
+    <td rowspan="3">Testing Data (Source Domain) 和 Training Data (Traget Domain) 的 distribution 不一样</td>
+    <td>输入从黑白变成彩色</td>
+  </tr>
+  <tr>
+    <td>输出从均匀变成倾斜</td>
+  </tr>
+  <tr>
+    <td>输入和输出的关系不一样</td>
   </tr>
   <tr>
     <td>Finetuning</td>
     <td>target domain data 很少，有 label</td>
+    <td>例如使用 ResNet 在小的具体任务上</td>
   </tr>
   <tr>
-    <td>Domain Adversarial Training</td>
-    <td>target domain data 很多，没有 label<br>- 把模型分成两半，一半认为是 feature
-     extractor，一半是 label predictor<br>- domain classifier: 类似于 GAN 判定图片是哪个 domain，可以把 feature extractor 想像成 generator，domain classifier 想像成 discriminator<br>- Decision Boundary (DIRT-T): unlabeled 的离 boundary 越远越好<br>- Universal Domain Adaptation: target domain 可能会有 source domain 里没有的类别</td>
+    <td rowspan="4">Domain Adversarial Training</td>
+    <td rowspan="4">target domain data 很多，没有 label</td>
+    <td>把模型分成两半，一半认为是 feature extractor，一半是 label predictor</td>
+  </tr>
+  <tr>
+    <td>domain classifier: 类似于 GAN 判定图片是哪个 domain，可以把 feature extractor 想像成 generator，domain classifier 想像成 discriminator</td>
+  </tr>
+  <tr>
+    <td>Decision Boundary (DIRT-T): unlabeled 的离 boundary 越远越好</td>
+  </tr>
+  <tr>
+    <td>Universal Domain Adaptation: target domain 可能会有 source domain 里没有的类别</td>
   </tr>
   <tr>
     <td>Testing Time Training</td>
     <td>target domain data 很少，没有 label</td>
+    <td>Unsupervised adaptation: TTT/ TENT</td>
   </tr>
 </table>
 
