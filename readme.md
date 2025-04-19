@@ -707,21 +707,57 @@
 
 <table>
   <tr>
+    <td rowspan="3">同一个模型不断学习新的 task</td>
     <td>Catastrophic interference (forgetting)</td>
-    <td>把线上资料和过往所有资料混在一起更新？计算和存储都是问题，multitask training 一般会用这个混合的数据集的训练结果作为 upper bound</td>
+    <td>学了新的忘了旧的</td>
+  </tr>
+  <tr>
+    <td>混合新旧数据</td>
+    <td>计算和存储都是问题，multitask training 一般会用这个混合数据集的训练结果作为 upper bound</td>
   </tr>
   <tr>
     <td>每个任务都有独立模型不行吗？</td>
     <td>不现实，不能融会贯通，人脑不就可以吗？对比 transfer learning 关心新的任务能不能从旧的任务上汲取信息, life long learning 更关心旧的任务还能做得一样好</td>
   </tr>
   <tr>
-    <td>Evaluation</td>
-    <td>画一个accuracy matrix，然后可以看有没有 transfer learning无师自通，也可以看有没有 catastrophic interference学了新的忘了旧的<br>最终 measure 可以用平均 accuracy 或者 backward transfer（差值）或者 forward transfer</td>
+    <td rowspan="2">Evaluation</td>
+    <td>Accuracy Matrix</td>
+    <td>可以看有没有 transfer learning 无师自通，也可以看有没有 catastrophic interference 学了新的忘了旧的</td>
   </tr>
   <tr>
-    <td>解决方案</td>
-    <td>- Selective Synaptic Plasticity：<br>
-    1. EWC: Loss 增加每个参数都有一个 guard b（人为设置的），如果这个参数在之前的任务非常重要，就不许大幅改动。类似的有: SI, MAS, RWalk, SCP<br>2. Gradient Episodic Memory (GEM): gradient 更新的方向会考虑之前的任务的 gradient，需要之前的资料来计算 gradient<br>- Additional Neural Resource Allocation: <br>1. Progressive Neural Network (额外任务就增加额外模型)<br>2. packNet（先做大模型，然后每次都只使用一部分参数）<br>3. CPG: 前面两者的结合<br>- Memory reply: 每个数据/任务都训练一个数据 generator，非常有效<br>- curriculum learning：任务学习的先后顺序</td>
+    <td>Final Measure</td>
+    <td>平均 accuracy 或者 backward transfer（差值）或者 forward transfer</td>
+  </tr>
+  <tr>
+    <td rowspan="2">Selective Synaptic Plasticity</td>
+    <td>EWC, SI, MAS, RWalk, SCP</td>
+    <td>Loss 增加每个参数都有一个 guard b（人为设置的），如果这个参数在之前的任务非常重要，就不许大幅改动</td>
+  </tr>
+  <tr>
+    <td>Gradient Episodic Memory (GEM)</td>
+    <td>gradient 更新的方向会考虑之前的任务的 gradient，需要之前的资料来计算 gradient</td>
+  </tr>
+  <tr>
+    <td rowspan="3">Additional Neural Resource Allocation</td>
+    <td>Progressive Neural Network</td>
+    <td>额外任务就增加额外模型</td>
+  </tr>
+  <tr>
+    <td>packNet</td>
+    <td>先做大模型，然后每次都只使用一部分参数</td>
+  </tr>
+  <tr>
+    <td>CPG</td>
+    <td>前面两者的结合</td>
+  </tr>
+  <tr>
+    <td rowspan="2">其他解决方案</td>
+    <td>Memory reply</td>
+    <td>每个数据/任务都训练一个数据 generator，非常有效</td>
+  </tr>
+  <tr>
+    <td>curriculum learning</td>
+    <td>任务学习的先后顺序</td>
   </tr>
 </table>
 
