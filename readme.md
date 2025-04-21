@@ -752,7 +752,7 @@
   </tr>
   <tr>
     <td rowspan="2">其他解决方案</td>
-    <td>Memory reply</td>
+    <td>Experience replay</td>
     <td>每个数据/任务都训练一个数据 generator，非常有效</td>
   </tr>
   <tr>
